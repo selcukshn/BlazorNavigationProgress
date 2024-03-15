@@ -1,0 +1,33 @@
+@attribute [StreamRendering]
+
+<ProgressBar Progression="Progression" />
+
+<CascadingValue Value="this">
+    @foreach (var fragment in Fragments)
+    {
+        @fragment
+    }
+</CascadingValue>
+
+@code {
+
+    [Parameter]
+    public RenderFragment ChildContent { set => Fragments.Add(value); }
+    List<RenderFragment> Fragments = new();
+
+    int Total;
+    int Completed;
+    public double Progression => Total != 0 ? 100 / Total * Completed : 0;
+
+    protected override void OnInitialized()
+    {
+        Total = Fragments.Count();
+        Completed = 0;
+    }
+
+    public void OperationDone()
+    {
+        Completed++;
+        StateHasChanged();
+    }
+}

@@ -1,0 +1,23 @@
+<style>
+    .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transition: all 250ms;
+        transition-timing-function: ease-out;
+        height: 3px;
+        background-color: red;
+        z-index: 999;
+    }
+
+    .progress-bar.loaded {
+        visibility: hidden;
+    }
+</style>
+
+<div class="progress-bar @(Progression != 100 ?string.Empty:"loaded")" style="width: @(Progression)vw;"></div>
+
+@code {
+    [Parameter]
+    public double Progression { get; set; }
+}

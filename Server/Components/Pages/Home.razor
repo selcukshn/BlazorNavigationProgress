@@ -1,0 +1,77 @@
+﻿@page "/"
+@using Server.Components.Progress
+
+<PageTitle>Home</PageTitle>
+
+<Progress>
+    <ChildContent>
+        <ProgressOperation TOperation="List<Person>" Operation="Operation1">
+            @foreach (var item in context)
+            {
+                <div>@item.Name @item.Surname</div>
+            }
+        </ProgressOperation>
+    </ChildContent>
+    <ChildContent>
+        <ProgressOperation TOperation="List<Person>" Operation="Operation2">
+            @foreach (var item in context)
+            {
+                <div>@item.Name @item.Surname</div>
+            }
+        </ProgressOperation>
+    </ChildContent>
+    <ChildContent>
+        <ProgressOperation TOperation="List<Person>" Operation="Operation3">
+            @foreach (var item in context)
+            {
+                <div>@item.Name @item.Surname</div>
+            }
+        </ProgressOperation>
+    </ChildContent>
+    <ChildContent>
+        <ProgressOperation TOperation="List<Person>" Operation="Operation4">
+            @foreach (var item in context)
+            {
+                <div>@item.Name @item.Surname</div>
+            }
+        </ProgressOperation>
+    </ChildContent>
+</Progress>
+
+
+@code {
+    List<Person> Persons = new() {
+new("Lorem", "Ipsum"),
+new("Lorem", "Ipsum"),
+new("Lorem", "Ipsum"),
+new("Lorem", "Ipsum"),
+new("Lorem", "Ipsum")
+};
+
+    async Task<List<Person>> Operation1()
+    {
+        await Task.Delay(1000);
+        return Persons;
+    }
+    async Task<List<Person>> Operation2()
+    {
+        await Task.Delay(250);
+        return Persons;
+    }
+    async Task<List<Person>> Operation3()
+    {
+        await Task.Delay(300);
+        return Persons;
+    }
+    async Task<List<Person>> Operation4()
+    {
+        await Task.Delay(350);
+        return Persons;
+    }
+
+    class Person(string name, string surname)
+    {
+        public string Name { get; set; } = name;
+        public string Surname { get; set; } = surname;
+    }
+}

@@ -1,0 +1,25 @@
+@typeparam TOperation
+
+@if (Result != null)
+{
+    @ChildContent(Result)
+}
+
+@code {
+    [CascadingParameter]
+    Progress Progress { get; set; }
+
+    [Parameter]
+    public Func<Task<TOperation>> Operation { get; set; }
+
+    [Parameter]
+    public RenderFragment<TOperation> ChildContent { get; set; }
+
+    TOperation? Result;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Result = await Operation.Invoke();
+        Progress.OperationDone();
+    }
+}
